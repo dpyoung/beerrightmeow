@@ -1,37 +1,4 @@
 <?php /*I'm a page!*/ 
-//getenv('HTTP_HOST')
-//error_reporting(E_ALL);
-//ini_set('display_errors', 'On');
-//require_once('db_conf.php');
-
-/********************************************************************************
-*	GNERATE RANDOM STRING FUNCTION
-*		Max value for length should not exceed 16 for URL generation.
-*		Otherwise use whatever. I don't care. I'm a comment, not the police.
-********************************************************************************/
-function generateRandomString($length = 16) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
-/********************************************************************************
-*	NULL INPUT STRING TO NULL VALUE FUNCTION
-*		Note: non-empty strings are left as-is.
-*		This function prepares values for SQL Insert.
-********************************************************************************/
-function null_input($data) {
-  if(strlen($data) == 0)
-	{	//The Great Nullifier
-		$data = NULL;
-	}
-  return $data;
-}
-
 /********************************************************************************
 *	CLEAN INPUT FUNCTION
 *		Function restricts data overall length, trims whitespace, escapes, returns
@@ -47,21 +14,6 @@ function cleanInput($data){
 	$data = htmlspecialchars($data);
 	return $data;
 }
-
-/********************************************************************************
-*	LIGHT CLEAN INPUT FUNCTION
-*		Function restricts data overall length, trims whitespace, escapes, returns
-********************************************************************************/
-function lightCleanInput($data){
-	if(strlen($data) > 65535)
-	{
-		fwrite(STDERR, "An error occurred. Check the length of your input.\n");
-		exit(1); // A response code other than 0 is a failure
-	}
-	$data = trim($data);
-	return $data;
-}
-
 /********************************************************************************
 *	INPUT ERROR REDIRECT HELPER FUNCTION
 *		Note: redirects only work before page content loads.
